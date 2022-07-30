@@ -1,5 +1,3 @@
-Code.require_file "module_info.exs", __DIR__
-
 defmodule Alchemist.Helpers.Complete do
 
   alias Alchemist.Helpers.ModuleInfo

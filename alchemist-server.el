@@ -42,7 +42,7 @@
   "List of available Alchemist server environments.")
 
 (defconst alchemist-server
-  (concat (file-name-directory load-file-name) "alchemist-server/run.exs")
+  (concat (file-name-directory load-file-name) "alchemist-server")
   "Path to the Alchemist server file.")
 
 (defconst alchemist-server-command
@@ -84,10 +84,9 @@ An Alchemist server will be started for the current Elixir mix project."
          (default-directory (if (string= process-name "alchemist-server")
                                 default-directory
                               process-name))
-         (server-command (format "%s %s %s"
-                                 alchemist-execute-command
-                                 (shell-quote-argument alchemist-server)
-                                 (shell-quote-argument env)))
+         (server-command (format "cd %s && mix alchemist %s" (shell-quote-argument alchemist-server)
+				 (shell-quote-argument env)))
+
          (process (start-process-shell-command process-name "*alchemist-server*" server-command)))
     (set-process-query-on-exit-flag process nil)
     (alchemist-server--store-process process)))
